@@ -48,12 +48,11 @@ def keyPressed():
 
 
 def draw():
-    global Frequency
     background(204)
     ox, oy = getOrigin()
+
     grid.Draw(ScreenWidth, ScreenHeight, GridScale, ox, oy)
     
-    ox, oy = getOrigin()
     stroke(0, 50, 125)
     trigonometryFunc.DrawSin(ScreenWidth, ScreenHeight, ox, oy, GridScale, Frequency, Amplitude, Modes.get(CurrenMode))
 
