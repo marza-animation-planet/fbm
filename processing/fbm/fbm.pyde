@@ -1,14 +1,20 @@
 import grid
+import simplex
+import perlin
 
 
-ScreenWidth = 600
-ScreenHeight = 400
+ScreenWidth = 900
+ScreenHeight = 500
 GridScale = 100
 Amplitude = 1
-Frequency = 0.01
+Frequency = 1
 Octaves = 1
 Lacunarity = 2
 Persistence = 0.5
+InvScale = 1 / float(GridScale)
+CurrentMode = "wave"
+Offset = 0
+OffsetPhaseScale = 1
 
 
 def getOrigin():
@@ -16,6 +22,7 @@ def getOrigin():
 
 
 def setup():
+    perlin.init(0)
     size(ScreenWidth, ScreenHeight)
 
 
@@ -25,24 +32,33 @@ def keyPressed():
     global Lacunarity
     global Persistence
     global Amplitude
+    global CurrentMode
+    global Offset
+    global OffsetPhaseScale
 
-    if key == "1":
-        if Octaves > 1:
-            Octaves -= 1
-    elif key == "2":
-        Octaves += 1
-    elif key == "3":
+    if key == "w":
+        CurrentMode = "wave"
+    elif key == "s":
+        CurrentMode = "simplex"
+    elif key == "p":
+        CurrentMode = "perlin"
+    elif key == "1":
         if Amplitude > 0.11:
             Amplitude -= 0.1
-    elif key == "4":
+    elif key == "2":
         Amplitude += 0.1
+    elif key == "3":
+        if Frequency > 0.11:
+            Frequency -= 0.1
+    elif key == "4":
+        Frequency += 0.1
     elif key == "5":
-        if Frequency > 0.01:
-            Frequency -= 0.01
+        if Octaves > 1:
+            Octaves -= 1
     elif key == "6":
-        Frequency += 0.01
+        Octaves += 1
     elif key == "7":
-        if Lacunarity > 0.1:
+        if Lacunarity > 1:
             Lacunarity -= 0.1
     elif key == "8":
         Lacunarity += 0.1
@@ -51,10 +67,37 @@ def keyPressed():
             Persistence -= 0.1
     elif key == "0":
         Persistence += 0.1
+    elif key == "+":
+        Offset += 0.05
+    elif key == "-":
+        Offset -= 0.05
+    elif key == "]":
+        OffsetPhaseScale += 0.05
+    elif key == "[":
+        if OffsetPhaseScale > 0.051:
+            OffsetPhaseScale -= 0.05
+
+    elif key == "r":
+        Amplitude = 1
+        Frequency = 1
+        Octaves = 1
+        Lacunarity = 2
+        Persistence = 0.5
+        CurrentMode = "wave"
+        Offset = 0
+        OffsetPhaseScale = 1
 
 
-def funcSin(x, frequency):
-    return sin(x * frequency * PI)
+def funcSin(x, fre):
+    return sin(x * fre * PI * InvScale)
+
+
+def funcSimplex(x, fre):
+    return simplex.noise(x * fre * InvScale)
+
+
+def funcPerlin(x, fre):
+    return perlin.noise(x * fre * InvScale)
 
 
 def draw():
@@ -68,14 +111,25 @@ def draw():
 
     pre = None
 
+    if CurrentMode == "wave":
+        func = funcSin
+    elif CurrentMode == "perlin":
+        func = funcPerlin
+    else:
+        func = funcSimplex
+
     for x in range(ScreenWidth):
+        offset = Offset
         fre = Frequency
         amp = Amplitude
         y = 0
+
         for i in range(Octaves):
-            y += amp * funcSin(x, fre)
+            y += amp * func(x + (offset * GridScale), fre)
             fre *= Lacunarity
             amp *= Persistence
+            offset *= OffsetPhaseScale
+
 
         y = oy - y * GridScale
         if pre and pre[1] < ScreenHeight and pre[1] > 0:
@@ -84,6 +138,8 @@ def draw():
         pre = (x, y)
 
     fill(30)
-    text("Octaves : %d Amplitude : %f Frequency: %f Lacunarity: %f Persistence: %f" % (Octaves, Amplitude, Frequency, Lacunarity, Persistence), 20, 20)
+    text("Amplitude : %f Frequency: %f Offset: %f" % (Amplitude, Frequency, Offset), 20, 20)
+    text("Octaves : %d Lacunarity: %f Persistence: %f OffsetPhaseScale : %f" % (Octaves, Lacunarity, Persistence, OffsetPhaseScale), 20, 40)
     fill(100)
-    text("Octave : 1,2 Amplitude 3,4 Frequency 5,6 Lacunarity: 7,8 Persistence : 9,0", 20, ScreenHeight - 20)
+    text("Mode : 'w' to wave, 'p' to perlin 's' to simplex, reset : 'r'", 20, ScreenHeight - 40)
+    text("Amplitude 1,2 Frequency 3,4 Octave : 5,6 Lacunarity: 7,8 Persistence : 9,0 Offset : -,+ OffsetPhaseScale: [,]", 20, ScreenHeight - 20)
