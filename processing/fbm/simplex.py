@@ -66,4 +66,4 @@ def noise(x):
     ix0 = ix0 & 0xff
     
     s = fade(fx0)
-    return 0.188 * lerp(s, gradient(Perm[ix0], fx0), gradient(Perm[ix1], fx1))
+    return 0.188 * lerp(gradient(Perm[ix0], fx0), gradient(Perm[ix1], fx1), s)
