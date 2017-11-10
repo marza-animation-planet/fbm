@@ -1,4 +1,5 @@
-// http://mrl.nyu.edu/~perlin/doc/oscar.html#noise
+// Noise1234 Stefan Gustavson (stegu@itn.liu.se)
+// Ken Perlin at Siggraph 2002
 
 
 #ifndef FBM_SIMPLEX_INCLUDED
