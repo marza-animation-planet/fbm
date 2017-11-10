@@ -20,11 +20,6 @@ namespace FBM
 }
 
 
-inline float sCurve(float t)
-{
-    return t * t * (3. - 2. * t);
-};
-
 inline float lerp(float a, float b, float w)
 {
     return a + w * (b - a);

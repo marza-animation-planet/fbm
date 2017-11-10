@@ -23,6 +23,11 @@ namespace FBM
             static float m_grad[0x100];
             static bool m_initialized;
     };
+
+    inline float sCurve(float t)
+    {
+        return t * t * (3. - 2. * t);
+    };
 }
 
 
