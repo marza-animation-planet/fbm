@@ -5,12 +5,12 @@
 using namespace FBM;
 
 
-Wave::Wave(const Context *context)
-    : Noise(context) {}
+Wave::Wave()
+    : Noise() {}
 
 Wave::~Wave() {}
 
 float Wave::noise(float t) const
 {
-    return m_context->amplitude() * sinf(M_PI * (t + m_context->offset()) * m_context->frequency());
+    return sinf(M_PI * t);
 }

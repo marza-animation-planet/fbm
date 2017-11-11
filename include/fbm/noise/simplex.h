@@ -14,7 +14,7 @@ namespace FBM
     class Simplex : public Noise
     {
         public:
-            Simplex(const Context *context);
+            Simplex();
             ~Simplex();
             float noise(float t) const;
 

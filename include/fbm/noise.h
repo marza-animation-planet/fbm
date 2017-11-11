@@ -2,20 +2,21 @@
 #define FBM_NOISE_INCLUDED
 
 
-#include "fbm/context.h"
-
-
 namespace FBM
 {
+    enum NoiseType
+    {
+        kPerlin = 0,
+        kSimplex,
+        kWave
+    };
+
     class Noise
     {
         public:
-            Noise(const Context *context) : m_context(context) {};
+            Noise() {};
             virtual ~Noise() {};
-            virtual float noise(float t) const = 0;
-
-        protected:
-            const Context *m_context;
+            virtual float noise(float t) const { return t; };
     };
 }
 

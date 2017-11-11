@@ -10,7 +10,7 @@ namespace FBM
     class Wave : public Noise
     {
         public:
-            Wave(const Context *context);
+            Wave();
             ~Wave();
             float noise(float t) const;
     };

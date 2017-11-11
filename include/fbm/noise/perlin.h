@@ -13,15 +13,16 @@ namespace FBM
     class Perlin : public Noise
     {
         public:
-            Perlin(const Context *context);
+            Perlin();
+            Perlin(unsigned int seed);
             ~Perlin();
             float noise(float t) const;
 
         private:
             void init();
-            static unsigned int m_perm[0x100];
-            static float m_grad[0x100];
-            static bool m_initialized;
+            unsigned int m_perm[0x100];
+            float m_grad[0x100];
+            unsigned int m_seed;
     };
 
     inline float sCurve(float t)

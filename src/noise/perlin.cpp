@@ -5,15 +5,14 @@
 using namespace FBM;
 
 
-unsigned int Perlin::m_perm[0x100];
+Perlin::Perlin()
+    : Noise(), m_seed(0)
+{
+    init();
+}
 
-float Perlin::m_grad[0x100];
-
-bool Perlin::m_initialized = false;
-
-
-Perlin::Perlin(const Context *context)
-    : Noise(context)
+Perlin::Perlin(unsigned int seed)
+    : Noise(), m_seed(seed)
 {
     init();
 }
@@ -39,21 +38,18 @@ void Perlin::init()
     int i, j, k;
     float inv_f = 1 / (float)0x100;
 
-    if (m_initialized)
-    {
-        return;
-    }
+    srand(m_seed);
 
     for (i = 0; i < 0x100; ++i)
     {
         m_perm[i] = i;
-        m_grad[i] = ((random() % 0x200) - 0x100) * inv_f;
+        m_grad[i] = ((rand() % 0x200) - 0x100) * inv_f;
     }
 
     while (--i)
     {
         k = m_perm[i];
-        m_perm[i] = m_perm[j = random() % 0x100];
+        m_perm[i] = m_perm[j = rand() % 0x100];
         m_perm[j] = k;
     }
 }
