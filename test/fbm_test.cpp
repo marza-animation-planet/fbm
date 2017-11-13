@@ -1,5 +1,6 @@
 #include "fbm/fbm.h"
 #include <iostream>
+#include <stdlib.h>
 
 
 using namespace FBM;
