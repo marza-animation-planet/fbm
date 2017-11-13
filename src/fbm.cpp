@@ -4,7 +4,7 @@
 using namespace FBM;
 
 
-Fbm::Fbm()
+FBM_EXPORT Fbm::Fbm()
     : m_type(kPerlin), m_octaves(0), m_amplitude(1), m_frequency(1), m_lacunarity(2), m_persistence(0.5), m_offset(0), m_offsetOctaveScale(1)
 {
     m_perlin = new Perlin();
@@ -19,7 +19,7 @@ Fbm::Fbm()
     m_contexts.clear();
 };
 
-Fbm::~Fbm()
+FBM_EXPORT Fbm::~Fbm()
 {
     setOctaves(0);
     delete m_perlin;
@@ -27,18 +27,18 @@ Fbm::~Fbm()
     delete m_simplex;
 };
 
-void Fbm::setNoiseType(NoiseType t)
+FBM_EXPORT void Fbm::setNoiseType(NoiseType t)
 {
     m_type = t;
     resetNoiseType();
 }
 
-NoiseType Fbm::getNoiseType() const
+FBM_EXPORT NoiseType Fbm::getNoiseType() const
 {
     return m_type;
 }
 
-void Fbm::setOctaves(unsigned int octaves)
+FBM_EXPORT void Fbm::setOctaves(unsigned int octaves)
 {
     if (m_octaves > octaves)
     {
@@ -64,78 +64,78 @@ void Fbm::setOctaves(unsigned int octaves)
     resetOffset();
 }
 
-unsigned int Fbm::getOctaves() const
+FBM_EXPORT unsigned int Fbm::getOctaves() const
 {
     return m_octaves;
 }
 
-void Fbm::setAmplitude(float amplitude)
+FBM_EXPORT void Fbm::setAmplitude(float amplitude)
 {
     m_amplitude = amplitude;
     resetAmplitude();
 }
 
-float Fbm::getAmplitude() const
+FBM_EXPORT float Fbm::getAmplitude() const
 {
     return m_amplitude;
 }
 
-void Fbm::setFrequency(float frequency)
+FBM_EXPORT void Fbm::setFrequency(float frequency)
 {
     m_frequency = frequency;
     resetFrequency();
 }
 
-float Fbm::getFrequency() const
+FBM_EXPORT float Fbm::getFrequency() const
 {
     return m_frequency;
 }
 
-void Fbm::setLacunarity(float lacunarity)
+FBM_EXPORT void Fbm::setLacunarity(float lacunarity)
 {
     m_lacunarity = lacunarity;
     resetFrequency();
 }
 
-float Fbm::getLacunarity() const
+FBM_EXPORT float Fbm::getLacunarity() const
 {
     return m_lacunarity;
 }
 
-void Fbm::setPersistence(float persistence)
+FBM_EXPORT void Fbm::setPersistence(float persistence)
 {
     m_persistence = persistence;
     resetAmplitude();
 }
 
-float Fbm::getPersistence() const
+FBM_EXPORT float Fbm::getPersistence() const
 {
     return m_persistence;
 }
 
-void Fbm::setOffset(float offset)
+FBM_EXPORT void Fbm::setOffset(float offset)
 {
     m_offset = offset;
     resetOffset();
 }
 
-float Fbm::getOffset() const
+FBM_EXPORT float Fbm::getOffset() const
 {
     return m_offset;
 }
 
-void Fbm::setOffsetOctaveScale(float scale)
+FBM_EXPORT void Fbm::setOffsetOctaveScale(float scale)
 {
     m_offsetOctaveScale = scale;
     resetOffset();
 }
 
-float Fbm::getOffsetOctaveScale() const
+FBM_EXPORT float Fbm::getOffsetOctaveScale() const
 {
     return m_offsetOctaveScale;
 }
 
-bool Fbm::overrideAmplitude(unsigned int index, float amplitude)
+FBM_EXPORT bool Fbm::overrideAmplitude(unsigned int index, float amplitude)
 {
     if (index >= m_octaves)
     {
@@ -147,7 +147,7 @@ bool Fbm::overrideAmplitude(unsigned int index, float amplitude)
     return true;
 }
 
-bool Fbm::overrideFrequency(unsigned int index, float frequency)
+FBM_EXPORT bool Fbm::overrideFrequency(unsigned int index, float frequency)
 {
     if (index >= m_octaves)
     {
@@ -159,7 +159,7 @@ bool Fbm::overrideFrequency(unsigned int index, float frequency)
     return true;
 }
 
-bool Fbm::overrideNoiseType(unsigned int index, NoiseType type)
+FBM_EXPORT bool Fbm::overrideNoiseType(unsigned int index, NoiseType type)
 {
     const Noise *noise;
     if (index >= m_octaves)
@@ -185,7 +185,7 @@ bool Fbm::overrideNoiseType(unsigned int index, NoiseType type)
     return true;
 }
 
-float Fbm::noise(float f) const
+FBM_EXPORT float Fbm::noise(float f) const
 {
     if (!m_contexts.size())
     {
