@@ -34,6 +34,9 @@ namespace FBM
             float getOffset() const;
             void setOffsetOctaveScale(float scale);
             float getOffsetOctaveScale() const;
+            bool overrideAmplitude(unsigned int index, float amplitude);
+            bool overrideFrequency(unsigned int index, float frequency);
+            bool overrideNoiseType(unsigned int index, NoiseType type);
             float noise(float f) const;
 
         private:

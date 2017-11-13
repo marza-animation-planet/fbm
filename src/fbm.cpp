@@ -135,6 +135,56 @@ float Fbm::getOffsetOctaveScale() const
     return m_offsetOctaveScale;
 }
 
+bool Fbm::overrideAmplitude(unsigned int index, float amplitude)
+{
+    if (index >= m_octaves)
+    {
+        return false;
+    }
+
+    m_contexts[index]->setAmplitude(amplitude);
+
+    return true;
+}
+
+bool Fbm::overrideFrequency(unsigned int index, float frequency)
+{
+    if (index >= m_octaves)
+    {
+        return false;
+    }
+
+    m_contexts[index]->setFrequency(frequency);
+
+    return true;
+}
+
+bool Fbm::overrideNoiseType(unsigned int index, NoiseType type)
+{
+    const Noise *noise;
+    if (index >= m_octaves)
+    {
+        return false;
+    }
+
+    switch (type)
+    {
+        case kPerlin:
+            noise = m_perlin;
+            break;
+        case kSimplex:
+            noise = m_simplex;
+            break;
+        default:
+            noise = m_wave;
+            break;
+    }
+
+    m_contexts[index]->setNoise(noise);
+
+    return true;
+}
+
 float Fbm::noise(float f) const
 {
     if (!m_contexts.size())
