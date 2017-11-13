@@ -3,3 +3,6 @@ release/
 debug/
 .sconsign.dblite
 excons.cache
+application.*/
+*$*
+*.autosave
