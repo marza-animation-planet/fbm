@@ -12,5 +12,5 @@ Wave::~Wave() {}
 
 float Wave::noise(float t) const
 {
-    return sinf(M_PI * t);
+    return sinf(t);
 }
