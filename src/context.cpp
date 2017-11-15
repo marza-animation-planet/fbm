@@ -24,6 +24,11 @@ float Context::getOffset() const
     return m_offset;
 }
 
+bool Context::getAbsolute() const
+{
+    return m_absolute;
+}
+
 void Context::setAmplitude(float f)
 {
     m_amplitude = f;
@@ -42,7 +47,18 @@ void Context::setNoise(const Noise *noise)
     m_noise = noise;
 }
 
+void Context::setAbsolute(bool absolute)
+{
+    m_absolute = absolute;
+}
+
 float Context::noise(float f) const
 {
-    return m_amplitude * m_noise->noise((f + m_offset) * m_frequency);
+    float result = m_amplitude * m_noise->noise((f + m_offset) * m_frequency);
+    if (m_absolute && result < 0.f)
+    {
+        result *= -1;
+    }
+
+    return result;
 }

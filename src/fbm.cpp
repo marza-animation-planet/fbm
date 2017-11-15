@@ -5,7 +5,7 @@ using namespace FBM;
 
 
 FBM_EXPORT Fbm::Fbm()
-    : m_type(kPerlin), m_octaves(0), m_amplitude(1), m_frequency(1), m_lacunarity(2), m_persistence(0.5), m_offset(0), m_offsetOctaveScale(1)
+    : m_absolute(false), m_type(kPerlin), m_octaves(0), m_amplitude(1), m_frequency(1), m_lacunarity(2), m_persistence(0.5), m_offset(0), m_offsetOctaveScale(1)
 {
     m_perlin = new Perlin();
     m_wave = new Wave();
@@ -62,6 +62,7 @@ FBM_EXPORT void Fbm::setOctaves(unsigned int octaves)
     resetAmplitude();
     resetFrequency();
     resetOffset();
+    resetAbsolute();
 }
 
 FBM_EXPORT unsigned int Fbm::getOctaves() const
@@ -135,6 +136,17 @@ FBM_EXPORT float Fbm::getOffsetOctaveScale() const
     return m_offsetOctaveScale;
 }
 
+FBM_EXPORT void Fbm::setAbsolute(bool absolute)
+{
+    m_absolute = absolute;
+    resetAbsolute();
+}
+
+FBM_EXPORT bool Fbm::getAbsolute() const
+{
+    return m_absolute;
+}
+
 FBM_EXPORT bool Fbm::overrideAmplitude(unsigned int index, float amplitude)
 {
     if (index >= m_octaves)
@@ -181,6 +193,30 @@ FBM_EXPORT bool Fbm::overrideNoiseType(unsigned int index, NoiseType type)
     }
 
     m_contexts[index]->setNoise(noise);
+
+    return true;
+}
+
+FBM_EXPORT bool Fbm::overrideOffset(unsigned int index, float offset)
+{
+    if (index >= m_octaves)
+    {
+        return false;
+    }
+
+    m_contexts[index]->setOffset(offset);
+
+    return true;
+}
+
+FBM_EXPORT bool Fbm::overrideAbsolute(unsigned int index, bool absolute)
+{
+    if (index >= m_octaves)
+    {
+        return false;
+    }
+
+    m_contexts[index]->setAbsolute(absolute);
 
     return true;
 }
@@ -257,3 +293,10 @@ void Fbm::resetOffset()
     }
 }
 
+void Fbm::resetAbsolute()
+{
+    for (std::vector<Context *>::iterator it = m_contexts.begin(); it != m_contexts.end(); ++it)
+    {
+        (*it)->setAbsolute(m_absolute);
+    }
+}
