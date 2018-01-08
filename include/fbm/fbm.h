@@ -15,33 +15,33 @@ namespace FBM
     class Fbm
     {
         public:
-            Fbm();
-            ~Fbm();
+            FBM_EXPORT Fbm();
+            FBM_EXPORT ~Fbm();
 
-            void setNoiseType(NoiseType t);
-            NoiseType getNoiseType() const;
-            void setOctaves(unsigned int octaves);
-            unsigned int getOctaves() const;
-            void setAmplitude(float amplitude);
-            float getAmplitude() const;
-            void setFrequency(float frequency);
-            float getFrequency() const;
-            void setLacunarity(float lacunarity);
-            float getLacunarity() const;
-            void setPersistence(float persistence);
-            float getPersistence() const;
-            void setOffset(float offset);
-            float getOffset() const;
-            void setOffsetOctaveScale(float scale);
-            float getOffsetOctaveScale() const;
-            void setAbsolute(bool absolute);
-            bool getAbsolute() const;
-            bool overrideAmplitude(unsigned int index, float amplitude);
-            bool overrideFrequency(unsigned int index, float frequency);
-            bool overrideNoiseType(unsigned int index, NoiseType type);
-            bool overrideOffset(unsigned int index, float offset);
-            bool overrideAbsolute(unsigned int index, bool absolute);
-            float noise(float f) const;
+            FBM_EXPORT void setNoiseType(NoiseType t);
+            FBM_EXPORT NoiseType getNoiseType() const;
+            FBM_EXPORT void setOctaves(unsigned int octaves);
+            FBM_EXPORT unsigned int getOctaves() const;
+            FBM_EXPORT void setAmplitude(float amplitude);
+            FBM_EXPORT float getAmplitude() const;
+            FBM_EXPORT void setFrequency(float frequency);
+            FBM_EXPORT float getFrequency() const;
+            FBM_EXPORT void setLacunarity(float lacunarity);
+            FBM_EXPORT float getLacunarity() const;
+            FBM_EXPORT void setPersistence(float persistence);
+            FBM_EXPORT float getPersistence() const;
+            FBM_EXPORT void setOffset(float offset);
+            FBM_EXPORT float getOffset() const;
+            FBM_EXPORT void setOffsetOctaveScale(float scale);
+            FBM_EXPORT float getOffsetOctaveScale() const;
+            FBM_EXPORT void setAbsolute(bool absolute);
+            FBM_EXPORT bool getAbsolute() const;
+            FBM_EXPORT bool overrideAmplitude(unsigned int index, float amplitude);
+            FBM_EXPORT bool overrideFrequency(unsigned int index, float frequency);
+            FBM_EXPORT bool overrideNoiseType(unsigned int index, NoiseType type);
+            FBM_EXPORT bool overrideOffset(unsigned int index, float offset);
+            FBM_EXPORT bool overrideAbsolute(unsigned int index, bool absolute);
+            FBM_EXPORT float noise(float f) const;
 
         private:
             void resetNoiseType();

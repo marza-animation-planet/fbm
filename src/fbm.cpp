@@ -225,7 +225,7 @@ FBM_EXPORT float Fbm::noise(float f) const
 {
     if (!m_contexts.size())
     {
-        return f;
+        return 0.0f;
     }
 
     float result = 0;

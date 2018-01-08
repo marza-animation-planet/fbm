@@ -12,7 +12,11 @@ out_incdir = excons.OutputBaseDirectory() + "/include"
 out_libdir = excons.OutputBaseDirectory() + "/lib"
 
 defs = []
-cppflags = " -Wno-unused-parameter"
+
+cppflags = ""
+if sys.platform != "win32":
+    cppflags += " -Wno-unused-parameter"
+
 if not staticlib:
     defs.append("FBM_DLL")
 
@@ -45,11 +49,7 @@ for test in excons.glob("test/*.cpp"):
 
 
 def FbmName():
-    name = prefix + "fbm"
-    if sys.platform == "win32" and staticlib:
-        name = "lib" + name
-
-    return name
+    return prefix + "fbm"
 
 
 def FbmPath():
