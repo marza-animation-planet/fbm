@@ -1,8 +1,23 @@
 #include "fbm/noise/perlin.h"
-#include <cstdlib>
 
 
 using namespace FBM;
+
+
+static unsigned long int rand_next = 1;
+
+
+int PERLIN::rand(void)
+{
+   rand_next = rand_next * 1103515245 + 12345;
+   return (unsigned int)(rand_next / 65536) % 32768;
+}
+
+
+void PERLIN::srand(unsigned int seed)
+{
+   rand_next = seed + 1;
+}
 
 
 Perlin::Perlin()
@@ -38,18 +53,18 @@ void Perlin::init()
     int i, j, k;
     float inv_f = 1 / (float)0x100;
 
-    srand(m_seed);
+    PERLIN::srand(m_seed);
 
     for (i = 0; i < 0x100; ++i)
     {
         m_perm[i] = i;
-        m_grad[i] = ((rand() % 0x200) - 0x100) * inv_f;
+        m_grad[i] = ((PERLIN::rand() % 0x200) - 0x100) * inv_f;
     }
 
     while (--i)
     {
         k = m_perm[i];
-        m_perm[i] = m_perm[j = rand() % 0x100];
+        m_perm[i] = m_perm[j = PERLIN::rand() % 0x100];
         m_perm[j] = k;
     }
 }

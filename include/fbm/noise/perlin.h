@@ -7,6 +7,11 @@
 
 #include "fbm/noise.h"
 
+namespace PERLIN
+{
+    int rand(void);
+    void srand(unsigned int seed);
+}
 
 namespace FBM
 {
